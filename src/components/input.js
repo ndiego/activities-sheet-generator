@@ -83,7 +83,7 @@ export default class Input extends React.Component {
 
                     <div className='step-title'>Step  2</div>
                     <p>Next, either click on the <em>XML Source Code</em> button, or copy and paste the full url above into another window of our Chrome browser.</p>
-                    <p>On the resulting page, copy and paste the content</p>
+                    <p>NEEDS WORK....On the resulting page, copy and paste the content</p>
 
                     <div className='step-title'>Step  3</div>
                     <p>Paste in copied XML in the textbox below.</p>
