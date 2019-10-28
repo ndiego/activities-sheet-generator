@@ -1,22 +1,175 @@
-.App {
-  text-align: center;
+/* General Styles */
+textarea {
+    resize: vertical;
+    border-color: #ccc;
+    padding: 12px;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+input {
+    border-radius: 0px;
+    padding: 5px 10px;
+    font-size: 12px;
 }
 
-.App-logo {
-  height: 40vmin;
+p {
+    color: #333;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Button Styles */
+.btn {
+    padding: 5px 10px;
+    width: 180px;
+    border-radius: 4px;
+    background-color: #eee;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn:hover {
+    opacity: .8;
+}
+.btn.submit,
+.btn.print,
+.btn.getXML {
+    background: #1989db;
+    border-color: #1989db;
+    color: #fff;
 }
 
-.App-link {
-  color: #09d3ac;
+.container {
+    max-width: 700px;
+    margin: 0 auto 100px;
 }
+
+/* Date settings */
+.date-title {
+    display: inline-block;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 16px;
+}
+.date-controls {
+    display: flex;
+    margin: 30px 0 20px;
+}
+.date-controls div {
+    flex: 0 0 50%;
+}
+
+.xml-link-container {
+    text-align: right;
+}
+.getXML {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+.view-source-url {
+    padding: 12px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    color: #777;
+}
+
+.step-title {
+    position: absolute;
+    margin-left: -100px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.step-title.last {
+    margin-top: 75px;
+}
+
+.input-container textarea {
+    width: 100%;
+}
+.input-controls {
+    display: flex;
+    margin: 15px 0 30px 0;
+}
+.input-controls div {
+    flex: 0 0 50%;
+}
+.input-submit {
+    text-align: right;
+}
+.activities-header {
+    margin: 80px 0 50px;
+    border-bottom: 1px solid #ddd;
+}
+.activity-items {
+}
+.activity-item {
+    text-align: left;
+    font-size: 14px;
+    margin: 0 0 20px;
+    break-inside: avoid;
+}
+.title {
+    font-size: 18px;
+    margin: 0 0 8px;
+}
+.metadata {
+    display: flex;
+    margin: 0 0 8px;
+}
+.metadata div {
+    flex: 0 0 50%;
+}
+.metadata div.location {
+    font-weight: bold;
+}
+.metadata div.time {
+    text-align: right
+}
+
+.print-page {
+    margin-top: 60px;
+    border-top: 1px solid #ddd;
+    padding: 30px;
+    text-align: center;
+}
+
+.activity-items {
+    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+    column-gap: 2cm;
+}
+.activity-item {
+    break-inside: avoid;
+}
+
+@media print {
+    .input-container,
+    .activities-header,
+    .print-page {
+        display: none;
+    }
+    .container {
+        width: 100%;
+        margin: auto;
+    }
+    .activity-item {
+        font-size: 10px;
+        page-break-inside: avoid;
+    }
+    .title {
+        font-size: 12px;
+        margin: 0 0 5px;
+    }
+    .metadata {
+        margin: 0 0 5px;
+    }
+}
+@page {
+    margin: 4cm 2.25cm 2.75cm;
+}
+/*
+@page :first {
+    margin: 5cm 8cm 1.5cm 1.5cm;
+}
+*/
