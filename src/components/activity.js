@@ -17,7 +17,7 @@ export default class Activity extends React.Component {
                 <h2 className='title'>
                     <Markup content={ this.props.children[2].value } />
                 </h2>
-                <div class='metadata'>
+                <div className='metadata'>
                     <div className='location'>
                         { this.props.children[4].value }
                     </div>

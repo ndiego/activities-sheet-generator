@@ -1,6 +1,8 @@
 import React from 'react';
 import XMLParser from 'react-xml-parser';
 import Moment from 'react-moment';
+import CopyToClipboard from 'react-copy-to-clipboard';
+import ReactTimeout from 'react-timeout';
 
 import Activity from './activity';
 
@@ -13,14 +15,16 @@ export default class Input extends React.Component {
         this.parseInput = this.parseInput.bind(this);
 
         this.setDate = this.setDate.bind(this);
+        this.onCopyUrl = this.onCopyUrl.bind(this);
+        this.copyToggle = this.copyToggle.bind(this);
 
         const today = new Date();
         const currentDate = <Moment format='LT'>{ today }</Moment>;
-        console.log(today.toLocaleDateString());
 
         this.state = {
             xml: [],
-            date: today.toLocaleDateString()
+            date: today.toLocaleDateString(),
+            copied: false
         };
     }
 
@@ -36,35 +40,43 @@ export default class Input extends React.Component {
 
         const xmlInput = new XMLParser().parseFromString( this.input.value );
 
-        console.log( xmlInput );
         this.setState({ xml: xmlInput.children });
     }
 
     getActivities() {
-        return this.state.xml.map((xml) => {
+        return this.state.xml.map((xml, index) => {
             return <Activity
                {...xml}
-               key={ 1 }/>
+               key={ index }/>
            });
     }
 
     setDate() {
+        this.setState({ date: this.date.value });
+    }
 
-        this.setState({
-            date: this.date.value
-        });
+    copyToggle() {
+        this.setState({ copied: !this.state.copied })
+    }
+
+    onCopyUrl() {
+      this.setState({ copied: true });
+      setTimeout( this.copyToggle, 5000 )
     }
 
     render() {
         const hasActivities = this.state.xml.length ? true : false ;
         const xmlLink = 'https://www.mountainviewgrand.com/activities-calendar.aspx?format=xmlfeed&startdate=' + this.state.date + '&enddate=' + this.state.date;
+        const sourceLink = 'view-source:' + xmlLink;
         return (
             <div className="container">
 
                 <div className="input-container">
                     <h1>Activity Sheet Generator</h1>
+
                     <div className='step-title'>Step  1</div>
                     <p>Begin by entering the date that you want to pull activities for or use the default. The default is set to today's date. Make sure to use the format MM/DD/YYYY.</p>
+
                     <div className='date-controls'>
                         <div className='date-container'>
                             <span className='date-title'>Date</span>
@@ -72,21 +84,28 @@ export default class Input extends React.Component {
                                 className='date'
                                 placeholder={ this.state.date }
                                 ref={ c => this.date = c }
-                                onChange={this.setDate}
+                                onChange={ this.setDate }
                             />
                         </div>
                         <div className='xml-link-container'>
-                            <a className='btn getXML' href={ xmlLink } target='_blank'>XML Source Code</a>
+                            <CopyToClipboard
+                                text={ sourceLink }
+                                onCopy={ this.onCopyUrl }>
+                                    <button className='btn getXML'>
+                                        { this.state.copied ? 'URL Copied' : 'Copy Source URL' }
+                                    </button>
+                            </CopyToClipboard>
                         </div>
                     </div>
-                    <p className='view-source-url'>view-source:{ xmlLink }</p>
+
+                    <p className='view-source-url' ref={ c => this.url = c }>view-source:{ xmlLink }</p>
 
                     <div className='step-title'>Step  2</div>
-                    <p>Next, either click on the <em>XML Source Code</em> button, or copy and paste the full url above into another window of our Chrome browser.</p>
-                    <p>NEEDS WORK....On the resulting page, copy and paste the content</p>
+                    <p>Copy the activity source URL and paste it into new Chrome browser window. Render the page and you will see a large block of XML code. Using keyboard shortcuts, select all (Ctrl A). Then copy (Ctrl C) all of the content.</p>
 
                     <div className='step-title'>Step  3</div>
-                    <p>Paste in copied XML in the textbox below.</p>
+                    <p>Return to this page and paste (Ctrl V) the copied XML into the textbox below. Then generate the activities list using the button below.</p>
+
                     <textarea
                         className='input'
                         ref={ c => this.input = c }
@@ -101,6 +120,7 @@ export default class Input extends React.Component {
                             <button className='btn submit' onClick={ this.parseInput }>Generate Activities</button>
                         </div>
                     </div>
+
                 </div>
 
                 { hasActivities &&
