@@ -1,5 +1,4 @@
 import React from 'react';
-//import XMLParser from 'react-xml-parser';
 import Moment from 'react-moment';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import ReactTimeout from 'react-timeout';
@@ -19,7 +18,6 @@ export default class Input extends React.Component {
         this.copyToggle = this.copyToggle.bind(this);
 
         const today = new Date();
-        const currentDate = <Moment format='LT'>{ today }</Moment>;
 
         this.state = {
             xml: [],
