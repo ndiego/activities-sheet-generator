@@ -83,7 +83,7 @@ p {
     font-weight: bold;
 }
 .step-title.last {
-    margin-top: 75px;
+    margin-top: 95px;
 }
 
 .input-container textarea {
@@ -129,6 +129,17 @@ p {
     text-align: right
 }
 
+.description * {
+    color: #333;
+    line-height: 1.1;
+}
+.description p {
+    margin-bottom: 5px;
+}
+.description li {
+    margin-bottom: 5px;
+}
+
 .print-page {
     margin-top: 60px;
     border-top: 1px solid #ddd;
@@ -157,7 +168,7 @@ p {
         margin: auto;
     }
     .activity-item {
-        font-size: 10px;
+        font-size: 9px;
         page-break-inside: avoid;
     }
     .title {

@@ -1,5 +1,5 @@
 import React from 'react';
-import XMLParser from 'react-xml-parser';
+//import XMLParser from 'react-xml-parser';
 import Moment from 'react-moment';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import ReactTimeout from 'react-timeout';
@@ -38,17 +38,35 @@ export default class Input extends React.Component {
     parseInput(e) {
         e.preventDefault();
 
-        const xmlInput = new XMLParser().parseFromString( this.input.value );
+        const xmlRaw = this.input.value.trim();
 
-        this.setState({ xml: xmlInput.children });
+        const parser = new DOMParser();
+        const parsedXml = parser.parseFromString( xmlRaw, "text/xml" );
+        const events = [...parsedXml.querySelectorAll( "event")];
+
+        this.setState({ xml: events });
     }
 
     getActivities() {
         return this.state.xml.map((xml, index) => {
+
+            const title = xml.getElementsByTagName( 'title' )[0].innerHTML;
+            const location = xml.getElementsByTagName( 'locationname' )[0].innerHTML;
+            const startDateTime = xml.getElementsByTagName( 'startdate' )[0].innerHTML;
+            const stopDateTime = xml.getElementsByTagName( 'enddate' )[0].innerHTML;
+            const shortDescription = xml.getElementsByTagName( 'shortdescription' )[0].innerHTML;
+            const longDescription = xml.getElementsByTagName( 'longdescription' )[0].innerHTML.trim();
+
+            console.log(title);
             return <Activity
-               {...xml}
-               key={ index }/>
-           });
+                title={ title }
+                location={ location }
+                startDateTime={ startDateTime }
+                stopDateTime={ stopDateTime }
+                shortDescription={ shortDescription }
+                longDescription={ longDescription }
+                key={ index }/>
+        });
     }
 
     setDate() {

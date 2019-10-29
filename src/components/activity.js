@@ -6,7 +6,7 @@ export default class Activity extends React.Component {
 
     render() {
 
-        //console.log( this.props.children );
+        console.log( this.props );
 
         const Entities = require('html-entities').XmlEntities;
 
@@ -15,23 +15,23 @@ export default class Activity extends React.Component {
         return(
             <div className='activity-item'>
                 <h2 className='title'>
-                    <Markup content={ this.props.children[2].value } />
+                    <Markup content={ this.props.title } />
                 </h2>
                 <div className='metadata'>
                     <div className='location'>
-                        { this.props.children[4].value }
+                        <Markup content={ this.props.location } />
                     </div>
                     <div className='time'>
-                        <Moment format="LT">{ this.props.children[12].value }</Moment> - <Moment format="LT">{ this.props.children[13].value }</Moment>
+                        <Moment format="LT">{ this.props.startDateTime }</Moment> - <Moment format="LT">{ this.props.stopDateTime }</Moment>
                     </div>
                 </div>
-                <div>
+                <div className='description'>
                     <Markup
                         allowAttributes={ true }
                         allowElements={ true }
                         noHTML={ true }
-                        content={ entities.decode( this.props.children[10].value ) } />
-                    </div>
+                        content={ entities.decode( this.props.longDescription ) } />
+                </div>
             </div>
         )
 
