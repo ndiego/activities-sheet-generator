@@ -4,18 +4,23 @@ textarea {
     border-color: #ccc;
     padding: 12px;
     box-sizing: border-box;
-    font-size: 12px;
+    font-size: 14px;
+    width: 100%;
+    color: #333;
 }
 input {
     border-radius: 0px;
     padding: 5px 10px;
     font-size: 12px;
+    color: #333;
 }
-
 p {
     color: #333;
     line-height: 1.3em;
     margin-bottom: 1.5em;
+}
+label {
+    cursor: pointer;
 }
 
 /* Button Styles */
@@ -33,9 +38,19 @@ p {
 }
 .btn.submit,
 .btn.print,
-.btn.getXML {
+.btn.getXML,
+.btn.add-movie {
     background: #1989db;
     border-color: #1989db;
+    color: #fff;
+}
+.btn.add-movie {
+    margin-top: 10px;
+}
+.btn.remove-movie {
+    width: 100px;
+    background: #ff6464;
+    border-color: #ff6464;
     color: #fff;
 }
 
@@ -86,9 +101,6 @@ p {
     margin-top: 95px;
 }
 
-.input-container textarea {
-    width: 100%;
-}
 .input-controls {
     display: flex;
     margin: 15px 0 30px 0;
@@ -99,6 +111,27 @@ p {
 .input-submit {
     text-align: right;
 }
+
+
+.movie-settings-container {
+    margin-top: 50px;
+}
+.movie-settings-container .step-title {
+    margin-top: 5px;
+}
+.movie-description {
+    margin-bottom: 20px;
+}
+.movie-item {
+    margin-bottom: 10px;
+}
+.movie-timeslot {
+    width: 80%;
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+
 .activities-header {
     margin: 80px 0 50px;
     border-bottom: 1px solid #ddd;

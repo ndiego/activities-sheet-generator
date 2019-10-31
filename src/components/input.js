@@ -14,15 +14,28 @@ export default class Input extends React.Component {
         this.parseInput = this.parseInput.bind(this);
 
         this.setDate = this.setDate.bind(this);
+        this.enableMovies = this.enableMovies.bind(this);
+        this.setMovieDescription = this.setMovieDescription.bind(this);
         this.onCopyUrl = this.onCopyUrl.bind(this);
         this.copyToggle = this.copyToggle.bind(this);
 
-        const today = new Date();
+        //const today = new Date();
+        const tomorrow = new Date( +new Date() + 86400000 );
 
         this.state = {
             xml: [],
-            date: today.toLocaleDateString(),
-            copied: false
+            date: tomorrow.toLocaleDateString(),
+            copied: false,
+            moviesEnabled: false,
+            movieDescription: 'Join us in our 16-seat theater to enjoy the movies scheduled today. Please speak with one of our guest advocates at the Front Desk to request popcorn. Movies are first come first serve, seats will not be reserved.',
+            movies: [
+                { movie: '8:00 AM - Movie Title (Rating)' },
+                { movie: '12:00 PM - Movie Title (Rating)' },
+                { movie: '3:00 PM - Movie Title (Rating)' },
+                { movie: '6:00 PM - Movie Title (Rating)' },
+                { movie: '9:00 PM - Movie Title (Rating)' },
+            ],
+
         };
     }
 
@@ -80,10 +93,73 @@ export default class Input extends React.Component {
       setTimeout( this.copyToggle, 5000 )
     }
 
+    enableMovies(e) {
+        this.setState({ moviesEnabled: e.target.checked })
+    }
+    setMovieDescription() {
+        this.setState({ movieDescription: this.movieDescription.value });
+    }
+
+    getMovies() {
+        return this.state.movies.map((movie, index) => {
+
+            return (
+                <div className='movie-item' ref={ index }>
+
+                    <input
+                        className={ 'movie-timeslot' }
+                        type="text"
+                        placeholder={ '00:00 AM - Movie Title (Rating)' }
+                        value={movie.movie}
+                        onChange={ this.handleMovieChange(index) }
+                    />
+                    <button
+                        className={ 'btn remove-movie' }
+                        type="button"
+                        onClick={ this.handleRemoveMovie(index) }
+                    >
+                      Remove
+                    </button>
+                </div>
+                );
+        });
+    }
+
+    handleMovieChange = idx => evt => {
+        const newMovies = this.state.movies.map((movie, sidx) => {
+            if ( idx !== sidx ) return movie;
+            return { ...movie, movie: evt.target.value };
+        });
+
+        this.setState({ movies: newMovies });
+    };
+
+    handleRemoveMovie = idx => () => {
+        this.setState({
+            movies: this.state.movies.filter((s, sidx) => idx !== sidx)
+        });
+    };
+
+    handleAddMovie = () => {
+        this.setState({
+            movies: this.state.movies.concat([{ movie: '00:00 AM - Movie Title (Rating)' }])
+        });
+    };
+
+    handleMovieTimeChange() {
+
+    }
+
+    handleRemoveMovie() {
+
+    }
+
     render() {
         const hasActivities = this.state.xml.length ? true : false ;
+
         const xmlLink = 'https://www.mountainviewgrand.com/activities-calendar.aspx?format=xmlfeed&startdate=' + this.state.date + '&enddate=' + this.state.date;
         const sourceLink = 'view-source:' + xmlLink;
+
         return (
             <div className="container">
 
@@ -139,17 +215,78 @@ export default class Input extends React.Component {
 
                 </div>
 
+                <div className='movie-settings-container'>
+                    <div className='step-title'>Step  4</div>
+                    <h2>Movies</h2>
+                    <p>
+                        <label>
+                            <input
+                                type='checkbox'
+                                checked={ this.state.moviesEnabled }
+                                onChange={ this.enableMovies }
+                            /> Enable Movie Times (Optional)
+                        </label>
+                    </p>
+                    { this.state.moviesEnabled &&
+                        <div className='movie-settings'>
+                            <p>Edit the movie information below as needed. If you do not want to show movie times on the activity sheet, simply disable this setting.</p>
+                            <textarea
+                                className='movie-description'
+                                ref={ c => this.movieDescription = c }
+                                placeholder={ 'Join us in our 16-seat theater to enjoy the movies scheduled today. Please speak with one of our guest advocates at the front desk to request popcorn. Movies are first come first serve, seats will not be reserved.' }
+                                rows='4'
+                                value={ this.state.movieDescription }
+                                onChange={ this.setMovieDescription }
+                            />
+                            <div className='movie-items'>
+                                { this.getMovies() }
+                                <button
+                                    className='btn add-movie'
+                                    type="button"
+                                    onClick={ this.handleAddMovie }
+                                >
+                                  Add Timeslot
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+
                 { hasActivities &&
                     <div className='activities-container'>
                         <div className='activities-header'>
                             <h1>Activities</h1>
                         </div>
                         <div className='activity-items'>
+                            { this.state.moviesEnabled &&
+                                <div className='activity-item'>
+                                    <h2 className='title'>
+                                        Daily Movie Schedule
+                                    </h2>
+                                    <div className='metadata'>
+                                        <div className='location'>
+                                            Movie Theater
+                                        </div>
+                                    </div>
+                                    <div className='description'>
+                                        <p>{ this.state.movieDescription }</p>
+                                        <ul>
+                                            { this.state.movies.map((movie, index) => {
+
+                                                return (
+                                                    <li ref={ index }>{movie.movie}</li>
+                                                    );
+                                            }) }
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
                             { this.getActivities() }
                         </div>
-                        <div className='step-title last'>Step  4</div>
+                        <div className='step-title last'>Step  5</div>
                         <div className='print-page'>
                             <button className="btn print" onClick={ () => window.print() }>Print Activity Sheet</button>
+                            <p>When printing, make sure that the "Headers and footers" checkbox is <strong>not</strong> selected in the print dialog box. This setting is located in the "More settings" tab.</p>
                         </div>
                     </div>
                 }
@@ -157,5 +294,4 @@ export default class Input extends React.Component {
             </div>
         );
     }
-
 }
