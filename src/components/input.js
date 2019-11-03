@@ -258,6 +258,9 @@ export default class Input extends React.Component {
                             <h1>Activities</h1>
                         </div>
                         <div className='activity-items'>
+                            <div className='activity-item current-date'>
+                                <h1><Moment format="MMMM D, YYYY">{ this.state.date }</Moment></h1>
+                            </div>
                             { this.state.moviesEnabled &&
                                 <div className='activity-item'>
                                     <h2 className='title'>
