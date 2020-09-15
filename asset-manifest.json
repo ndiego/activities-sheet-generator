@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/activities-sheet-generator/static/css/main.1985a3f7.chunk.css",
+    "main.js": "/activities-sheet-generator/static/js/main.5a8d6da5.chunk.js",
+    "main.js.map": "/activities-sheet-generator/static/js/main.5a8d6da5.chunk.js.map",
+    "runtime-main.js": "/activities-sheet-generator/static/js/runtime-main.9c87c9a9.js",
+    "runtime-main.js.map": "/activities-sheet-generator/static/js/runtime-main.9c87c9a9.js.map",
+    "static/js/2.4adc5f6f.chunk.js": "/activities-sheet-generator/static/js/2.4adc5f6f.chunk.js",
+    "static/js/2.4adc5f6f.chunk.js.map": "/activities-sheet-generator/static/js/2.4adc5f6f.chunk.js.map",
+    "index.html": "/activities-sheet-generator/index.html",
+    "precache-manifest.2a829c180215a00d94ac6af2e2cf0e4f.js": "/activities-sheet-generator/precache-manifest.2a829c180215a00d94ac6af2e2cf0e4f.js",
+    "service-worker.js": "/activities-sheet-generator/service-worker.js",
+    "static/css/main.1985a3f7.chunk.css.map": "/activities-sheet-generator/static/css/main.1985a3f7.chunk.css.map",
+    "static/js/2.4adc5f6f.chunk.js.LICENSE.txt": "/activities-sheet-generator/static/js/2.4adc5f6f.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9c87c9a9.js",
+    "static/js/2.4adc5f6f.chunk.js",
+    "static/css/main.1985a3f7.chunk.css",
+    "static/js/main.5a8d6da5.chunk.js"
+  ]
+}
