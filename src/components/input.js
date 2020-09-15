@@ -1,6 +1,7 @@
 import React from 'react';
 import Moment from 'react-moment';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import ReactTimeout from 'react-timeout';
 
 import Activity from './activity';
 
