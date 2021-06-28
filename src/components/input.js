@@ -25,7 +25,7 @@ export default class Input extends React.Component {
             date: tomorrow.toLocaleDateString(),
             copied: false,
             moviesEnabled: false,
-            movieDescription: 'Join us in our 16-seat theater to enjoy the movies scheduled today. Please speak with one of our guest advocates at the Front Desk to request popcorn. Movies are first come first serve, seats will not be reserved.',
+            movieDescription: 'Join us in our 16-seat theater to enjoy the movies scheduled today. Movies are first come first serve, seats will not be reserved.',
             movies: [
                 { movie: '8:00 AM - Movie Title (Rating)' },
                 { movie: '12:00 PM - Movie Title (Rating)' },
